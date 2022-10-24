@@ -1,0 +1,21 @@
+name: Greet Everyone
+# 이 Workflow는 저장소에 Push가 되면 실행 되도록 한다
+on: [push]
+
+jobs:
+  # Job ID: 문자와 -(대시), _(언더바)로 구성된 Job 고유 식별자
+  build:
+    # Job 이름
+    name: Greeting
+    # 이 Job은 리눅스에서 실행된다
+    runs-on: ubuntu-latest
+    steps:
+      # 이 Step은 Github이 제공하는 `hello-world-javascript-action` Action을 사용한다
+      - name: Hello world
+        uses: actions/hello-world-javascript-action@v1
+        with:
+          who-to-greet: 'Mona the Octocat'
+        id: hello
+      # 이 Step은 이전 Step에서 나온 출력을 사용한다
+      - name: Echo the greeting's time
+        run: echo 'The time was ${{ steps.hello.outputs.time }}.'
